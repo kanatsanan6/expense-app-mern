@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import validator from "email-validator";
+import { Checkmark } from "react-checkmark";
 
 // images
 import hero1 from "../images/person-1.png";
 import hero2 from "../images/person-2.png";
 import gmailLogo from "../images/google-logo.png";
+import { loginWithEmailAndPassword, registerWithGmail } from "../services/firebaseAuth";
 
 function Login({ setIsLoginPage }) {
   const [email, setEmail] = useState("");
@@ -17,6 +18,13 @@ function Login({ setIsLoginPage }) {
     setPassword(event.target.value);
   };
 
+  const onClickLoginWithEmailAndPassword = () => {
+    loginWithEmailAndPassword(email, password);
+  };
+  const onClickLoginWithGmail = () => {
+    registerWithGmail();
+  };
+
   return (
     <div className="h-screen w-screen bg-[#E5E5E5] flex justify-center items-center">
       <div className="bg-white max-h-[650px] max-w-[475px] md:max-w-[950px] w-[100%] h-[100%] flex justify-between rounded-lg">
@@ -27,7 +35,10 @@ function Login({ setIsLoginPage }) {
               please login to get your financial manager !
             </h1>
             <p className="mb-4 text-sm font-normal">Welcome back! Please login to your account.</p>
-            <button className="flex justify-center items-center w-[100%] h-11 text-xs uppercase border border-gray-400 rounded-3xl font-semibold tracking-wide  hover:opacity-80">
+            <button
+              onClick={onClickLoginWithGmail}
+              className="flex justify-center items-center w-[100%] h-11 text-xs uppercase border border-gray-400 rounded-3xl font-semibold tracking-wide  hover:opacity-80"
+            >
               <img src={gmailLogo} alt="" className="pr-2 h-5" />
               <p>Log in with google</p>
             </button>
@@ -45,14 +56,17 @@ function Login({ setIsLoginPage }) {
               className="mb-2 pl-5 w-[100%] text-xs h-11 ma rounded-3xl border border-[#adadad] tracking-wider"
               onChange={(e) => onEmailChange(e)}
             />
-            <p className="mb-1 text-xs font-semibold text-[#464646]">Password:</p>
+            <p className="mb-1 text-xs font-semibold text-[#464646]">Passwords:</p>
             <input
               type="password"
               placeholder="**********"
               className="mb-5 pl-5 w-[100%] text-xs h-11 rounded-3xl border border-[#adadad] tracking-widest"
               onChange={(e) => onPasswordChange(e)}
             />
-            <button className="mb-3 uppercase bg-blue-600 w-[100%] h-11 text-sm rounded-3xl text-white font-semibold tracking-wider hover:opacity-80">
+            <button
+              onClick={onClickLoginWithEmailAndPassword}
+              className="mb-3 uppercase bg-blue-600 w-[100%] h-11 text-sm rounded-3xl text-white font-semibold tracking-wider hover:opacity-80"
+            >
               Login
             </button>
 
