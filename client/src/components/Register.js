@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import { Checkmark } from "react-checkmark";
 
 // images
 import hero1 from "../images/person-1.png";
 import hero2 from "../images/person-2.png";
 import gmailLogo from "../images/google-logo.png";
 import PasswordRequirement from "./PasswordRequirement";
-import {
-  isConfirmPasswordValid,
-  isEmailValid,
-  isPasswordValid,
-  isUsernameValid,
-} from "../functions/formValidation";
+import { isConfirmPasswordValid, isEmailValid, isPasswordValid, isUsernameValid } from "../functions/formValidation";
 import { registerWithEmailAndPassword, registerWithGmail } from "../services/firebaseAuth";
+import { Checkmark } from "./Checkmark";
+import { useNavigate } from "react-router-dom";
 
 function Register({ setIsLoginPage }) {
   const [username, setUsername] = useState("");
@@ -29,13 +25,10 @@ function Register({ setIsLoginPage }) {
     },
     comfirmPasswordStatus: false,
   });
-  const passwordStatus =
-    formStatus.passwordStatus.minEightChar &&
-    formStatus.passwordStatus.minOneLower &&
-    formStatus.passwordStatus.minOneUpper;
+  const passwordStatus = formStatus.passwordStatus.minEightChar && formStatus.passwordStatus.minOneLower && formStatus.passwordStatus.minOneUpper;
   const [isShowPasswordRequirement, setIsShowPasswordRequirement] = useState(false);
-  const allFormStatus =
-    formStatus.userStatus && formStatus.emailStatus && formStatus.passwordStatus && passwordStatus;
+  const allFormStatus = formStatus.userStatus && formStatus.emailStatus && formStatus.passwordStatus && passwordStatus;
+  const navigate = useNavigate();
 
   const onUsernameChange = (event) => {
     const newFormStatus = { ...formStatus };
@@ -59,11 +52,7 @@ function Register({ setIsLoginPage }) {
   };
   const onConfirmPasswordChange = (event) => {
     const newFormStatus = { ...formStatus };
-    newFormStatus.comfirmPasswordStatus = isConfirmPasswordValid(
-      password,
-      event.target.value,
-      passwordStatus
-    );
+    newFormStatus.comfirmPasswordStatus = isConfirmPasswordValid(password, event.target.value, passwordStatus);
     setFormStatus(newFormStatus);
     setConfirmPassword(event.target.value);
   };
@@ -76,11 +65,11 @@ function Register({ setIsLoginPage }) {
   };
 
   const onClickRegister = () => {
-    registerWithEmailAndPassword(username, email, password);
+    registerWithEmailAndPassword(username, email, password, navigate);
   };
 
   const onClickRegisterWithGmail = () => {
-    registerWithGmail();
+    registerWithGmail(navigate);
   };
 
   return (
@@ -89,9 +78,7 @@ function Register({ setIsLoginPage }) {
         <div className="w-[100%] md:w-[50%] flex flex-col justify-center items-center pt-12">
           <div className="w-[80%]">
             <h1 className="-mt-5 mb-10 capitalize text-xl font-bold text-blue-600">financial manager</h1>
-            <h1 className="mb-1 capitalize text-2xl font-bold text-blue-600">
-              please Sign Up to get your financial manager !
-            </h1>
+            <h1 className="mb-1 capitalize text-2xl font-bold text-blue-600">please Sign Up to get your financial manager</h1>
             <p className="mb-4 text-sm font-normal">Welcome back! Please sign up to your account.</p>
 
             <button
@@ -110,15 +97,10 @@ function Register({ setIsLoginPage }) {
             {/* Email and username */}
             <p className="mb-1 text-xs font-semibold text-[#464646]">Username:</p>
             <div className="flex items-center">
-              <input
-                type="text"
-                placeholder="Username"
-                className="mb-2 pl-5 min-w-[100%] text-xs h-11 ma rounded-3xl border border-[#adadad] tracking-wider"
-                onChange={(e) => onUsernameChange(e)}
-              />
+              <input type="text" placeholder="Username" className="mb-2 pl-5 min-w-[100%] text-xs h-11 ma rounded-3xl border border-[#adadad] tracking-wider" onChange={(e) => onUsernameChange(e)} />
               {formStatus.userStatus && (
                 <div className="w-1 mb-2 z-1 relative right-8">
-                  <Checkmark size="20px" />
+                  <Checkmark size="20px" status={true} />
                 </div>
               )}
             </div>
@@ -134,46 +116,44 @@ function Register({ setIsLoginPage }) {
               />
               {formStatus.emailStatus && (
                 <div className="w-2 mb-2 z-1 relative right-8">
-                  <Checkmark size="20px" />
+                  <Checkmark size="20px" status={true} />
                 </div>
               )}
             </div>
 
             {/* Password */}
             <div className="flex justify-between">
-              <div className="w-[100%] mr-3 h-[130px]">
+              <div className="w-[50%] mr-3 h-[130px]">
                 <p className="mb-1 text-xs font-semibold text-[#464646]">Password:</p>
                 <div className="flex items-center">
                   <input
                     type="password"
                     placeholder="**********"
-                    className="mb-2 pl-5 pr-3 min-w-[100%] text-xs h-11 rounded-3xl border border-[#adadad] tracking-widest"
+                    className="mb-2 pl-5 pr-2 min-w-[100%] text-xs h-11 rounded-3xl border border-[#adadad] tracking-widest"
                     onChange={(e) => onPasswordChange(e)}
                     onFocus={onFocusPasswordInput}
                     onBlur={onBlurPasswordInput}
                   />
                   {passwordStatus && (
-                    <div className="w-2 mb-2 z-1 relative right-8">
-                      <Checkmark size="20px" />
+                    <div className="w-1 mb-2 z-1 relative right-8">
+                      <Checkmark size="20px" status={true} />
                     </div>
                   )}
                 </div>
-                {isShowPasswordRequirement && (
-                  <PasswordRequirement className="z-20" passwordStatus={formStatus.passwordStatus} />
-                )}
+                {isShowPasswordRequirement && <PasswordRequirement className="z-20" passwordStatus={formStatus.passwordStatus} />}
               </div>
-              <div className="w-[100%]">
+              <div className="w-[50%]">
                 <p className="mb-1 text-xs font-semibold text-[#464646]">Confirm Password:</p>
                 <div className="flex items-center">
                   <input
                     type="password"
                     placeholder="**********"
-                    className="mb-5 pl-5 pr-3 min-w-[100%] text-xs h-11 rounded-3xl border border-[#adadad] tracking-widest"
+                    className="mb-5 pl-5 pr-2 min-w-[100%] text-xs h-11 rounded-3xl border border-[#adadad] tracking-widest"
                     onChange={(e) => onConfirmPasswordChange(e)}
                   />
                   {formStatus.comfirmPasswordStatus && (
                     <div className="w-2 mb-5 relative right-8">
-                      <Checkmark size="20px" />
+                      <Checkmark size="20px" status={true} />
                     </div>
                   )}
                 </div>
@@ -199,8 +179,8 @@ function Register({ setIsLoginPage }) {
           </div>
         </div>
         <div className="h-[100%] w-[50%] bg-blue-400 hidden md:block rounded-lg">
-          <img src={hero1} alt="" className="h-[50%] relative left-28 top-16" />
-          <img src={hero2} alt="" className="h-[50%] relative left-12 bottom-12 z-1 " />
+          <img src={hero1} alt="" className="w-[70%] relative left-24 lg:left-28 top-16" />
+          <img src={hero2} alt="" className="w-[70%] relative left-12 bottom-5 lg:bottom-10 z-1" />
         </div>
       </div>
     </div>
