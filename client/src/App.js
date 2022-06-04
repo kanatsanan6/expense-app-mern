@@ -15,8 +15,13 @@ function App() {
   }, []);
 
   onAuthStateChanged(auth, (user) => {
-    if (user) localStorage.setItem("Authentication", JSON.stringify(true));
-    else localStorage.setItem("Authentication", JSON.stringify(false));
+    if (user) {
+      localStorage.setItem("Authentication", JSON.stringify(true));
+      setIsLogin(true);
+    } else {
+      localStorage.setItem("Authentication", JSON.stringify(false));
+      setIsLogin(false);
+    }
   });
 
   return (

@@ -2,8 +2,12 @@ import React from "react";
 import Avatar from "@mui/material/Avatar";
 import home from "../images/home.png";
 import user from "../images/user.png";
+import { userSignOut } from "../services/firebaseAuth";
+import { useNavigate } from "react-router-dom";
 
 function SideBar() {
+  const navigate = useNavigate();
+
   return (
     <div className="w-80 h-screen bg-white sticky top-0 left-0 shadow-lg flex flex-col justify-between">
       <div>
@@ -49,7 +53,9 @@ function SideBar() {
         </div>
       </div>
       <div className="w-[100%] h-[100%] sticky bottom-0 m-auto flex justify-center items-end">
-        <button className="mb-3 uppercase bg-blue-600 w-[80%] h-11 text-sm rounded-3xl text-white font-semibold tracking-wider hover:opacity-80">SIGN OUT</button>
+        <button className="mb-3 uppercase bg-blue-600 w-[80%] h-11 text-sm rounded-3xl text-white font-semibold tracking-wider hover:opacity-80" onClick={() => userSignOut(navigate)}>
+          SIGN OUT
+        </button>
       </div>
     </div>
   );
