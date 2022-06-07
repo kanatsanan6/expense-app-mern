@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkmark } from "./Checkmark";
+import { Checkmark } from "../Checkmark/Checkmark";
 
 function PasswordRequirement({ passwordStatus }) {
   return (

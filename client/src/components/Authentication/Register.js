@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 // images
-import hero1 from "../images/person-1.png";
-import hero2 from "../images/person-2.png";
-import gmailLogo from "../images/google-logo.png";
+import hero1 from "../../images/person-1.png";
+import hero2 from "../../images/person-2.png";
+import gmailLogo from "../../images/google-logo.png";
 import PasswordRequirement from "./PasswordRequirement";
-import { isConfirmPasswordValid, isEmailValid, isPasswordValid, isUsernameValid } from "../functions/formValidation";
-import { registerWithEmailAndPassword, registerWithGmail } from "../services/firebaseAuth";
-import { Checkmark } from "./Checkmark";
+import { isConfirmPasswordValid, isEmailValid, isPasswordValid, isUsernameValid } from "../../functions/formValidation";
+import { registerWithEmailAndPassword, registerWithGmail } from "../../services/firebaseAuth";
+import { Checkmark } from "../Checkmark/Checkmark";
 import { useNavigate } from "react-router-dom";
 
 function Register({ setIsLoginPage }) {

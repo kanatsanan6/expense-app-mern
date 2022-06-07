@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 // images
-import hero1 from "../images/person-1.png";
-import hero2 from "../images/person-2.png";
-import gmailLogo from "../images/google-logo.png";
-import { loginWithEmailAndPassword, registerWithGmail } from "../services/firebaseAuth";
+import hero1 from "../../images/person-1.png";
+import hero2 from "../../images/person-2.png";
+import gmailLogo from "../../images/google-logo.png";
+import { loginWithEmailAndPassword, registerWithGmail } from "../../services/firebaseAuth";
 import { useNavigate } from "react-router-dom";
 
 function Login({ setIsLoginPage }) {
