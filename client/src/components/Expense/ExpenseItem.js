@@ -1,43 +1,102 @@
 import React from "react";
-import foodImg from "../../images/Category/food.png";
+import Delete from "../../images/delete.png";
+import edit from "../../images/editing.png";
+import food from "../../images/Category/Outcome/food.png";
+import investment from "../../images/Category/Outcome/investment.png";
+import miscellaneous from "../../images/Category/Outcome/miscellaneous.png";
+import saving from "../../images/Category/Outcome/saving.png";
+import transportation from "../../images/Category/Outcome/transportation.png";
+import benefit from "../../images/Category/Income/benefit.png";
+import salary from "../../images/Category/Income/salary.png";
 
 function ExpenseItem({ transaction }) {
+  function configAmountStyle() {
+    if (transaction.type === "outcome") return "text-red-600";
+    return "text-green-600";
+  }
+
   return (
-    <div className="bg-[#F3F3F3] h-20 w-[919px] mb-5 flex">
+    <div className="bg-[#F3F3F3] h-20 w-[919px] mb-5 flex pl-3">
+      {/* Title */}
+      <div className="w-[25%] p-2">
+        <h1 className="text-gray-600 text-sm">Title</h1>
+        <h1 className="text-gray-800 text-md mt-2 capitalize font-medium">
+          {transaction.title}
+        </h1>
+      </div>
+
       {/* Category */}
       <div className="w-[20%] p-2">
         <h1 className="text-gray-600 text-sm">Category</h1>
         <div className="flex items-center mt-1">
-          <img src={foodImg} alt="" className="w-9 mr-2" />
-          <h1 className="text-lg capitalize">{transaction.category}</h1>
+          <img
+            src={typeImage(transaction.category)}
+            alt=""
+            className="w-8 mr-2"
+          />
+          <h1 className="text-gray-800 text-md capitalize font-medium">
+            {transaction.category}
+          </h1>
         </div>
-      </div>
-
-      {/* Title */}
-      <div className="w-[25%] p-2">
-        <h1 className="text-gray-600 text-sm">Title</h1>
-        <h1 className="text-lg mt-1 capitalize">{transaction.title}</h1>
       </div>
 
       {/* Type */}
       <div className="w-[20%] p-2">
         <h1 className="text-gray-600 text-sm">Type</h1>
-        <h1 className="text-lg mt-1 capitalize">{transaction.type}</h1>
+        <h1
+          className={`capitalize text-lg mt-2 font-medium ${configAmountStyle()}`}
+        >
+          {transaction.type}
+        </h1>
       </div>
 
       {/* Amount */}
       <div className="w-[15%] p-2">
         <h1 className="text-gray-600 text-sm">Amount</h1>
-        <h1 className="text-lg mt-1 font-semibold text-red-600">{`฿ ${transaction.amount}`}</h1>
+        <h1 className={`text-lg mt-2 font-medium ${configAmountStyle()}`}>{`${
+          transaction.type === "outcome" ? "-" : "+"
+        } ฿  ${numberWithCommas(transaction.amount)}`}</h1>
       </div>
 
       {/* Date */}
-      <div className="flex-1 p-2">
+      <div className="w-[15%] p-2">
         <h1 className="text-gray-600 text-sm">Date</h1>
-        <h1 className="text-lg mt-1">{transaction.date}</h1>
+        <h1 className="text-gray-800 text-md mt-2 font-medium">
+          {transaction.date}
+        </h1>
+      </div>
+      {/* Delate / Edit */}
+      <div className="flex-1 p-2 flex flex-col items-center justify-around">
+        <img src={edit} alt="" className="w-5 ml-1 opacity-50 cursor-pointer" />
+        <img src={Delete} alt="" className="w-5 opacity-50 cursor-pointer" />
       </div>
     </div>
   );
 }
 
 export default ExpenseItem;
+
+function typeImage(type) {
+  switch (type.toLowerCase()) {
+    case "food":
+      return food;
+    case "investment":
+      return investment;
+    case "miscellaneous":
+      return miscellaneous;
+    case "saving":
+      return saving;
+    case "transportation":
+      return transportation;
+    case "benefit":
+      return benefit;
+    case "salary":
+      return salary;
+    default:
+      break;
+  }
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

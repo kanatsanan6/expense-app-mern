@@ -19,13 +19,13 @@ function HomePage() {
   }, [dispatch]);
 
   return (
-    <div className="z-10 v-screen overflow-hidden h-screen bg-[#F3F3F3] flex flex-col items-center justify-between">
+    <div className="z-10 v-screen overflow-hidden h-screen bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 flex flex-col items-center justify-between">
       <Header user={user?.user} />
-      {/* Summary */}
-      <div></div>
       {/* Main window */}
-      <Expense setShowForm={setShowForm} />
-      {showForm && <Form setShowForm={setShowForm} />}
+      <div className="w-[100%] h-[100%] flex justify-center items-center">
+        <Expense setShowForm={setShowForm} />
+        {showForm && <Form setShowForm={setShowForm} />}
+      </div>
     </div>
   );
 }
