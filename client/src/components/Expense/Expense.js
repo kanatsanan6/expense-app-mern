@@ -22,31 +22,21 @@ function Expense({ setShowForm, setFormMode, setCurrentForm }) {
           <h1 className="text-xl md:text-2xl font-semibold">Income</h1>
           <div className="flex mt-4">
             <p className="text-lg font-semibold text-green-600">฿</p>
-            <h2 className="text-xl md:text-4xl font-semibold text-green-600">
-              {numberWithCommas(totalIncome)}
-            </h2>
+            <h2 className="text-xl md:text-4xl font-semibold text-green-600">{numberWithCommas(totalIncome)}</h2>
           </div>
         </div>
         <div className="w-[30%] h-[100%] min-w-[100px] overflow-x-auto bg-[#F3F3F3] p-2 sm:p-3">
           <h1 className="text-xl md:text-2xl font-semibold">Outcome</h1>
           <div className="flex mt-4">
             <p className="text-lg font-semibold text-red-600">฿</p>
-            <h2 className="text-xl md:text-4xl font-semibold text-red-600">
-              {numberWithCommas(totalOutcome)}
-            </h2>
+            <h2 className="text-xl md:text-4xl font-semibold text-red-600">{numberWithCommas(totalOutcome)}</h2>
           </div>
         </div>
         <div className="w-[30%] h-[100%] min-w-[100px] overflow-x-auto bg-[#F3F3F3] p-2 sm:p-3">
           <h1 className="text-xl md:text-2xl font-semibold">Total</h1>
           <div className="flex mt-4">
-            <p className={`text-lg font-semibold ${totalStyle(totalTotal)}`}>
-              ฿
-            </p>
-            <h2
-              className={`text-xl md:text-4xl font-semibold ${totalStyle(
-                totalTotal
-              )}`}
-            >
+            <p className={`text-lg font-semibold ${totalStyle(totalTotal)}`}>฿</p>
+            <h2 className={`text-xl md:text-4xl font-semibold ${totalStyle(totalTotal)}`}>
               {numberWithCommas(totalTotal)}
             </h2>
           </div>
@@ -56,19 +46,32 @@ function Expense({ setShowForm, setFormMode, setCurrentForm }) {
       {/* Header */}
       <div className="flex justify-between mt-5 mb-5 ml-3 sm:ml-8 mr-3 sm:mr-8">
         <h1 className="text-xl sm:text-2xl font-semibold">Expenses</h1>
-        <button
-          className="bg-green-300 w-36 h-10 rounded-lg text-green-900 hover:opacity-80"
-          onClick={onClickAddTrans}
-        >
+        <button className="bg-green-300 w-36 h-10 rounded-lg text-green-900 hover:opacity-80" onClick={onClickAddTrans}>
           Add Transaction
         </button>
       </div>
       <hr className="ml-5 mr-5 mb-2" />
       {/* Content */}
       <div className="overflow-y-scroll overflow-x-auto flex-1 mt-3 mb-3 sm:mb-8 ml-3 sm:ml-8 mr-3 sm:mr-8">
-        {transactions.map((transaction, index) => {
-          return <ExpenseItem setShowForm={setShowForm} setFormMode={setFormMode} setCurrentForm={setCurrentForm} transaction={transaction} key={index} />;
-        })}
+        {transactions.length !== 0 ? (
+          <>
+            {transactions.map((transaction, index) => {
+              return (
+                <ExpenseItem
+                  setShowForm={setShowForm}
+                  setFormMode={setFormMode}
+                  setCurrentForm={setCurrentForm}
+                  transaction={transaction}
+                  key={index}
+                />
+              );
+            })}
+          </>
+        ) : (
+          <>
+            <h1>There is no transaction.</h1>
+          </>
+        )}
       </div>
     </div>
   );
@@ -77,9 +80,7 @@ function Expense({ setShowForm, setFormMode, setCurrentForm }) {
 export default Expense;
 
 function summaryTotal(transactions, type) {
-  const filterTransactions = transactions.filter(
-    (transaction) => transaction.type === type
-  );
+  const filterTransactions = transactions.filter((transaction) => transaction.type === type);
 
   let result = 0;
   filterTransactions.forEach((transaction) => {

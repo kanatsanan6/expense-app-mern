@@ -15,8 +15,10 @@ export const getTransactions = () => async (dispatch) => {
 
 export const createTransaction = (transaction) => async (dispatch) => {
   try {
-    await api.createTransaction(transaction);
-    dispatch({ type: "CREATE", payload: transaction });
+    api.createTransaction(transaction).then((data) => {
+      dispatch({ type: "CREATE", payload: data.data });
+    })
+    
   } catch (error) {
     console.log(error.message);
   }

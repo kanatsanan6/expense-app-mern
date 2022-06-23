@@ -27,9 +27,8 @@ export const createTransaction = async (req, res) => {
   });
 
   try {
-    await newTransactionMessage.save();
-
-    res.status(201).json(newTransactionMessage);
+    const data = await newTransactionMessage.save();
+    res.status(201).json(data);
   } catch (error) {
     res.status(409).json({ message: error.message });
   }

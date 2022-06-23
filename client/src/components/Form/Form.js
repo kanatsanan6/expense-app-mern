@@ -23,7 +23,7 @@ function Form({ setShowForm, formMode, currentForm, setCurrentForm }) {
   const [showTypeDropDown, setShowTypeDropDown] = useState(false);
   const [typeDropDown, setTypeDropDown] = useState(transaction.type);
   const [catDropDown, setCatDropDown] = useState(transaction.category);
-  const [title, setTitle] = useState("-");
+  const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState("-");
 
@@ -46,6 +46,7 @@ function Form({ setShowForm, formMode, currentForm, setCurrentForm }) {
 
   function onSubmit(e) {
     e.preventDefault();
+    console.log(formMode)
     const newTransaction = {
       _id: !formMode ? "" : currentForm._id,
       id: !formMode ? uuidv4() : currentForm.id,
@@ -62,7 +63,7 @@ function Form({ setShowForm, formMode, currentForm, setCurrentForm }) {
       dispatch(updateTransaction(currentForm._id, newTransaction));
     }
     setTransaction(newTransaction);
-    const newCurrentForm = { _id: currentForm._id, ...newTransaction };
+    const newCurrentForm = { _id: currentForm?._id, ...newTransaction };
     setCurrentForm(newCurrentForm);
     setShowForm(false);
   }
@@ -86,7 +87,6 @@ function Form({ setShowForm, formMode, currentForm, setCurrentForm }) {
   }, [typeDropDown]);
 
   useEffect(() => {
-    console.log(currentForm);
     if (formMode) {
       setCatDropDown(currentForm.category);
       setTypeDropDown(currentForm.type);
