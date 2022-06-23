@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:5000/transactions";
+const url = "https://expense-mern-server.herokuapp.com/transactions";
 
 export const fetchTransactions = () => axios.get(url);
 export const createTransaction = async (newTransaction) => {

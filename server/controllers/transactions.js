@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 
-import TransactionMessage from "../models/transactionMessage";
+import TransactionMessage from "../models/transactionMessage.js";
 
 const router = express.Router();
 

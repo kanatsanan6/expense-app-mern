@@ -18,7 +18,10 @@ app.use("/transactions", transactionRoutes);
 const CONNECTION_URL = process.env.MONGO_URL;
 const PORT = process.env.PORT || 5000;
 
+console.log(process.env.MONGO_URL);
+
 mongoose
   .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(PORT, () => console.log(`Server is running on Port: ${PORT}`)))
   .catch((error) => console.log(error));
+  
+app.listen(PORT, () => console.log(`Server is running on Port: ${PORT}`));
