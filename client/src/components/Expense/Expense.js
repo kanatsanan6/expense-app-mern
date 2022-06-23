@@ -1,9 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import ExpenseDisplay from "./ExpenseDisplay";
 import ExpenseItem from "./ExpenseItem";
 
-function Expense({ setShowForm }) {
+function Expense({ setShowForm, setFormMode, setCurrentForm }) {
   const transactions = useSelector((state) => state.transactions);
 
   const totalIncome = summaryTotal(transactions, "income");
@@ -12,6 +11,7 @@ function Expense({ setShowForm }) {
 
   function onClickAddTrans() {
     setShowForm(true);
+    setFormMode(false);
   }
 
   return (
@@ -67,7 +67,7 @@ function Expense({ setShowForm }) {
       {/* Content */}
       <div className="overflow-y-scroll overflow-x-auto flex-1 mt-3 mb-3 sm:mb-8 ml-3 sm:ml-8 mr-3 sm:mr-8">
         {transactions.map((transaction, index) => {
-          return <ExpenseItem transaction={transaction} key={index} />;
+          return <ExpenseItem setShowForm={setShowForm} setFormMode={setFormMode} setCurrentForm={setCurrentForm} transaction={transaction} key={index} />;
         })}
       </div>
     </div>

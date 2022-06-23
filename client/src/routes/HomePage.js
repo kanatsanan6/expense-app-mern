@@ -8,6 +8,8 @@ import { getTransactions } from "../actions/transactions";
 function HomePage() {
   const [user, setUser] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [formMode, setFormMode] = useState(false);
+  const [currentForm, setCurrentForm] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,8 +25,8 @@ function HomePage() {
       <Header user={user?.user} />
       {/* Main window */}
       <div className="w-[100%] h-[100%] flex justify-center items-center">
-        <Expense setShowForm={setShowForm} />
-        {showForm && <Form setShowForm={setShowForm} />}
+        <Expense setShowForm={setShowForm} setFormMode={setFormMode} setCurrentForm={setCurrentForm} />
+        {showForm && <Form setShowForm={setShowForm} formMode={formMode} currentForm={currentForm} setCurrentForm={setCurrentForm} />}
       </div>
     </div>
   );

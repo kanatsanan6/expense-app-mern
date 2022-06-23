@@ -2,32 +2,27 @@ import React, { useEffect, useRef, useState } from "react";
 import DropDown from "../../images/arrow-down.png";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
-import { createTransaction } from "../../actions/transactions";
+import { createTransaction, updateTransaction } from "../../actions/transactions";
 
 const TYPE = ["outcome", "income"];
-const OUTCOME_CATEGORIES = [
-  "food",
-  "transportation",
-  "saving",
-  "investment",
-  "miscellaneous",
-];
+const OUTCOME_CATEGORIES = ["food", "transportation", "saving", "investment", "miscellaneous"];
 const INCOME_CATEGORIES = ["salary", "benefit"];
 
-function Form({ setShowForm }) {
+function Form({ setShowForm, formMode, currentForm, setCurrentForm }) {
   const [transaction, setTransaction] = useState({
     id: "",
     userId: "",
-    category: "",
+    category: currentForm ? currentForm.category : "food",
     title: "",
-    type: "",
+    type: currentForm ? currentForm.type : "outcome",
     amount: "",
     date: "",
   });
+
   const [showCatDropDown, setShowCatDropDown] = useState(false);
   const [showTypeDropDown, setShowTypeDropDown] = useState(false);
-  const [typeDropDown, setTypeDropDown] = useState("outcome");
-  const [catDropDown, setCatDropDown] = useState("food");
+  const [typeDropDown, setTypeDropDown] = useState(transaction.type);
+  const [catDropDown, setCatDropDown] = useState(transaction.category);
   const [title, setTitle] = useState("-");
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState("-");
@@ -52,7 +47,8 @@ function Form({ setShowForm }) {
   function onSubmit(e) {
     e.preventDefault();
     const newTransaction = {
-      id: uuidv4(),
+      _id: !formMode ? "" : currentForm._id,
+      id: !formMode ? uuidv4() : currentForm.id,
       userId: JSON.parse(localStorage.getItem("userInformation")).user.uid,
       category: catDropDown,
       title: title,
@@ -60,8 +56,14 @@ function Form({ setShowForm }) {
       amount: amount,
       date: date,
     };
-    dispatch(createTransaction(newTransaction));
+    if (!formMode) {
+      dispatch(createTransaction(newTransaction));
+    } else {
+      dispatch(updateTransaction(currentForm._id, newTransaction));
+    }
     setTransaction(newTransaction);
+    const newCurrentForm = { _id: currentForm._id, ...newTransaction };
+    setCurrentForm(newCurrentForm);
     setShowForm(false);
   }
 
@@ -69,8 +71,7 @@ function Form({ setShowForm }) {
   const formRef = useRef(null);
   useEffect(() => {
     function handleClickOutside(event) {
-      if (formRef.current && !formRef.current.contains(event.target))
-        setShowForm(false);
+      if (formRef.current && !formRef.current.contains(event.target)) setShowForm(false);
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -78,11 +79,22 @@ function Form({ setShowForm }) {
 
   useEffect(() => {
     if (typeDropDown === "outcome") {
-      setCatDropDown("Food");
+      setCatDropDown("food");
     } else {
-      setCatDropDown("Salary");
+      setCatDropDown("salary");
     }
   }, [typeDropDown]);
+
+  useEffect(() => {
+    console.log(currentForm);
+    if (formMode) {
+      setCatDropDown(currentForm.category);
+      setTypeDropDown(currentForm.type);
+      setTitle(currentForm.title);
+      setAmount(currentForm.amount);
+      setDate(currentForm.date);
+    }
+  }, [currentForm]);
 
   return (
     <div className="w-[100%] h-[100%] flex justify-center items-center bg-black bg-opacity-50 absolute top-0">
@@ -90,12 +102,13 @@ function Form({ setShowForm }) {
         ref={formRef}
         className="w-[30%] h-[30%] max-h-[650px] min-w-[360px]  max-w-[500px] min-h-[450px] bg-white rounded-lg p-5"
       >
-        <h1 className="text-2xl mb-5 mt-5 text-center">ADD NEW TRANSACTION</h1>
+        <h1 className="text-2xl mb-5 mt-5 text-center">{`${formMode ? "EDIT" : "ADD NEW"} TRANSACTION`}</h1>
         <p>Title :</p>
         <input
           type="text"
           className="border border-gray-400 w-[100%] h-12 rounded-lg mb-3 pl-3"
           onChange={(e) => setTitle(e.target.value)}
+          value={title}
         />
         <div className="flex w-[100%]">
           <div className="w-[50%]">
@@ -139,10 +152,7 @@ function Form({ setShowForm }) {
               </div>
               {showCatDropDown && (
                 <div className="z-50 bg-white shadow-lg rounded-lg relative border border-gray-300 right-3 mt-5 w-[112%] h-fit overflow-auto">
-                  {(typeDropDown === "outcome"
-                    ? OUTCOME_CATEGORIES
-                    : INCOME_CATEGORIES
-                  ).map((item, index) => {
+                  {(typeDropDown === "outcome" ? OUTCOME_CATEGORIES : INCOME_CATEGORIES).map((item, index) => {
                     return (
                       <h1
                         onClick={() => onClickSelectCatDropDowm(item)}
@@ -165,6 +175,7 @@ function Form({ setShowForm }) {
               type="number"
               className="border border-gray-400 w-[95%] h-12 rounded-lg mb-3 pl-3 pr-3"
               onChange={(e) => setAmount(e.target.value)}
+              value={amount}
             />
           </div>
           <div className="w-[50%]">
@@ -173,6 +184,7 @@ function Form({ setShowForm }) {
               type="date"
               className="ml-3 border border-gray-400 w-[95%] h-12 rounded-lg mb-3 pl-3 pr-3"
               onChange={(e) => setDate(e.target.value)}
+              value={date}
             />
           </div>
         </div>
@@ -180,7 +192,7 @@ function Form({ setShowForm }) {
           onClick={(e) => onSubmit(e)}
           className="mt-3 w-[100%] bg-green-300 text-green-900 h-12 rounded-xl relative bottom-44"
         >
-          Add New Transaction
+          {`${formMode ? "EDIT" : "ADD NEW"} TRANSACTION`}
         </button>
       </div>
     </div>

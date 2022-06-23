@@ -11,7 +11,7 @@ import salary from "../../images/Category/Income/salary.png";
 import { deleteTransaction } from "../../actions/transactions";
 import { useDispatch } from "react-redux";
 
-function ExpenseItem({ transaction }) {
+function ExpenseItem({ transaction, setShowForm, setFormMode, setCurrentForm }) {
   const dispatch = useDispatch();
 
   function configAmountStyle() {
@@ -22,6 +22,13 @@ function ExpenseItem({ transaction }) {
   function onDelete(e) {
     e.preventDefault();
     dispatch(deleteTransaction(transaction._id));
+  }
+
+  function onEdit(e) {
+    e.preventDefault();
+    setShowForm(true);
+    setFormMode(true);
+    setCurrentForm(transaction)
   }
 
   return (
@@ -62,7 +69,7 @@ function ExpenseItem({ transaction }) {
       </div>
       {/* Delate / Edit */}
       <div className="flex-1 p-2 flex flex-col items-center justify-around">
-        <img src={edit} alt="" className="w-4 ml-1 opacity-30 cursor-pointer" />
+        <img src={edit} alt="" className="w-4 ml-1 opacity-30 cursor-pointer" onClick={(e) => onEdit(e)} />
         <img src={Delete} alt="" className="w-4 opacity-30 cursor-pointer" onClick={(e) => onDelete(e)} />
       </div>
     </div>

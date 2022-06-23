@@ -9,3 +9,7 @@ export const createTransaction = async (newTransaction) => {
 export const deleteTransaction = async (id) => {
   axios.delete(`${url}/${id}`)
 }
+export const updateTransaction = async (id, newTransaction) => {
+  console.log(id)
+  axios.patch(`${url}/${id}`, newTransaction)
+}

@@ -31,6 +31,21 @@ export const deleteTransaction = (id) => async (dispatch) => {
   }
 };
 
+export const updateTransaction = (id, newTransaction) => async (dispatch) => {
+  try {
+    await api.updateTransaction(id, newTransaction);
+    dispatch({
+      type: "UPDATE",
+      payload: {
+        id,
+        newTransaction,
+      },
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 // local function
 function categorizeByDate(transactions) {
   const newTransactions = {};

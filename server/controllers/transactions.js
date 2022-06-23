@@ -48,11 +48,11 @@ export const deleteTransaction = async (req, res) => {
 export const updateTransaction = async (req, res) => {
   const { id } = req.params;
   const isIdExist = mongoose.Types.ObjectId.isValid(id);
-  if (!isIdExist) return res.status(404).json({ message: "comment not found" });
+  if (!isIdExist) return res.status(404).json({ message: "transaction not found" });
 
   const updatedTransaction = { ...req.body, _id: id };
   await TransactionMessage.findByIdAndUpdate(id, updatedTransaction, { new: true });
-  res.status(200).json({ message: "comment is updated successfully" });
+  res.status(200).json({ message: "transaction is updated successfully" });
 };
 
 export default router;
