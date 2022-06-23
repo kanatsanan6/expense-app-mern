@@ -4,8 +4,10 @@ export default (transactions = [], action) => {
     case "FETCH_ALL":
       return action.payload;
     case "CREATE":
-      console.log(transactions);
       return [...transactions, action.payload];
+    case "DELETE":
+      const newTransaction = transactions.filter((transaction) => transaction._id !== action.payload)
+      return [...newTransaction];
     default:
       return transactions;
   }

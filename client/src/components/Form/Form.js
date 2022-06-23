@@ -3,7 +3,6 @@ import DropDown from "../../images/arrow-down.png";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { createTransaction } from "../../actions/transactions";
-import { refType } from "@mui/utils";
 
 const TYPE = ["outcome", "income"];
 const OUTCOME_CATEGORIES = [

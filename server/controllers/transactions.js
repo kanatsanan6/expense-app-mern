@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 
 import TransactionMessage from "../models/transactionMessage";
 
@@ -15,8 +16,15 @@ export const getTransactions = async (req, res) => {
 
 export const createTransaction = async (req, res) => {
   const { id, userId, category, title, type, amount, date } = req.body;
-  console.log(userId);
-  const newTransactionMessage = new TransactionMessage({ id, userId, category, title, type, amount, date });
+  const newTransactionMessage = new TransactionMessage({
+    id,
+    userId,
+    category,
+    title,
+    type,
+    amount,
+    date,
+  });
 
   try {
     await newTransactionMessage.save();
@@ -24,6 +32,16 @@ export const createTransaction = async (req, res) => {
     res.status(201).json(newTransactionMessage);
   } catch (error) {
     res.status(409).json({ message: error.message });
+  }
+};
+
+export const deleteTransaction = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await TransactionMessage.findByIdAndDelete(id);
+    res.json({ message: "Deleted successfully" });
+  } catch (error) {
+    res.status(404).send(`No post id: ${id} found`);
   }
 };
 

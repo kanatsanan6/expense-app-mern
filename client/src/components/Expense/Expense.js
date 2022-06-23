@@ -63,10 +63,7 @@ function Expense({ setShowForm }) {
           Add Transaction
         </button>
       </div>
-      <hr className="ml-5 mr-5 mb-5" />
-      <div className="flex justify-end items-center mr-3 sm:mr-8">
-        <h1>Filter</h1>
-      </div>
+      <hr className="ml-5 mr-5 mb-2" />
       {/* Content */}
       <div className="overflow-y-scroll overflow-x-auto flex-1 mt-3 mb-3 sm:mb-8 ml-3 sm:ml-8 mr-3 sm:mr-8">
         {transactions.map((transaction, index) => {

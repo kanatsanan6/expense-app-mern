@@ -4,9 +4,7 @@ export const getTransactions = () => async (dispatch) => {
   try {
     const { data } = await api.fetchTransactions();
     const filterData = data.filter(
-      (item) =>
-        item.userId ===
-        JSON.parse(localStorage.getItem("userInformation")).user.uid
+      (item) => item.userId === JSON.parse(localStorage.getItem("userInformation")).user.uid
     );
     categorizeByDate(filterData);
     dispatch({ type: "FETCH_ALL", payload: filterData });
@@ -19,6 +17,15 @@ export const createTransaction = (transaction) => async (dispatch) => {
   try {
     await api.createTransaction(transaction);
     dispatch({ type: "CREATE", payload: transaction });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const deleteTransaction = (id) => async (dispatch) => {
+  try {
+    await api.deleteTransaction(id);
+    dispatch({ type: "DELETE", payload: id });
   } catch (error) {
     console.log(error.message);
   }
