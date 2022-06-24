@@ -28,7 +28,7 @@ function Header({ user }) {
       {/* User and Button */}
       <div className="mr-5 sm:mr-12 mt-14 h-24">
         <div className="flex items-center">
-          <a href="https://github.com/kanatsanan6/expense-app-mern" className="rounded-lg mr-4 h-10 w-12 sm:w-52 font-semibold border border-black flex items-center justify-center">
+          <a href="https://github.com/kanatsanan6/expense-app-mern" className="rounded-lg mr-4 h-10 w-12 hidden sm:flex sm:w-52 font-semibold border border-black items-center justify-center">
             <img src={githubLogo} alt="" className="w-7 sm:mr-3" />
             <h1 className="hidden sm:block">Go to Github repo</h1>
           </a>
