@@ -1,6 +1,6 @@
 # KEP OM
 
-<img src="https://github.com/kanatsanan6/kanatsanan6/blob/main/homepagepc.PNG?raw=true" alt="homepage"/>
+<img src="https://github.com/kanatsanan6/kanatsanan6/blob/main/kepom.png?raw=true" alt="homepage"/>
 
 
 ## Live Demo
