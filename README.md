@@ -29,6 +29,8 @@ KEP OM is a Full-Stack web application built by **React js (Frontend)**, **Node 
 
 - Axios
 
+- Tailwind CSS
+
 - Material UI
 
 - Firebase ( Authentication )
