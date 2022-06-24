@@ -1,70 +1,124 @@
-# Getting Started with Create React App
+# KEP OM
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src="https://github.com/kanatsanan6/kanatsanan6/blob/main/homepagepc.PNG?raw=true" alt="homepage"/>
 
-## Available Scripts
 
-In the project directory, you can run:
+## Live Demo
 
-### `npm start`
+### Live Demo: [KEP-OM](https://kep-om.netlify.app/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### Testing Credential
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Email: test@test.com / Password: Test1234
 
-### `npm test`
+## About the Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+KEP OM is a Full-Stack web application built by **React js (Frontend)**, **Node js / Express (Backend)**, and **MongoDB (database).**
 
-### `npm run build`
+*The design prototype has been drafted using **Figma**. Click [here](https://www.figma.com/file/SInsrqwE01a58zV6pdjdrV/Untitled?node-id=0%3A1) to Check it out!
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Front-End
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- React
 
-### `npm run eject`
+- Redux
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React Router Dom v6
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Axios
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Material UI
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Firebase ( Authentication )
 
-## Learn More
+- Netlify ( Deployment )
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Back-End
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Node
 
-### Code Splitting
+- Express
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Cors
 
-### Analyzing the Bundle Size
+- MongoDB and mongoose ( Database )
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Heroku ( Deployment )
 
-### Making a Progressive Web App
+## Functionalities
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Basic Functionalities
 
-### Advanced Configuration
+- User can login using either registerd Email or Gmail.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- User can add a new Transaction.
 
-### Deployment
+- User can edit a Transaction.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- User can delete a Transaction.
 
-### `npm run build` fails to minify
+- User can be able to see the overall payment.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Installation
+
+#### 1. Clone the project repo
+
+```bash
+git clone https://github.com/kanatsanan6/expense-app-mern
+```
+
+#### 2. Install the dependencies
+
+- Client dependencies
+
+```bash
+cd client
+npm install
+```
+
+- Server dependencies
+
+```bash
+cd server
+npm install
+```
+#### 3. Add Environment variables
+
+- **Client:**
+Register and get an API information from firebase authentication.
+Create .dnv file in the root directory ( client folder ) and fill the below information
+
+```bash
+REACT_APP_API_KEY = "API_KEY"
+REACT_APP_AUTH_DOMAIN = "AUTH_DOMAIN"
+REACT_APP_PROJECT_ID = "PROJECT_ID"
+REACT_APP_STORAGE_BUCKET = "STORAGE_BUCKET"
+REACT_APP_MESSAGING_SENDER_ID = "MESSAGING_SENDER_ID"
+REACT_APP_API_ID = "API_ID"
+```
+
+- **Server:**
+Register and get an URL information from Mongodb atlas.
+Create .dnv file in the root directory ( server folder ) and fill the below information
+
+```bash
+MONGO_URL = "MONGO_URL"
+```
+
+#### 4. Start the project
+
+- Client
+
+```bash
+cd client
+npm start
+```
+
+- Server
+
+```bash
+cd server
+npm dev
+```
