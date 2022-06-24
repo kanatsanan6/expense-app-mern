@@ -1,5 +1,8 @@
 # KEP OM
 
+<img src="https://github.com/kanatsanan6/kanatsanan6/blob/main/homepagepc.PNG?raw=true" alt="homepage"/>
+
+
 ## Live Demo
 
 ### Live Demo: [KEP-OM](https://kep-om.netlify.app/)
@@ -10,15 +13,7 @@ Email: test@test.com / Password: Test1234
 
 ## About the Project
 
-### Authentication Page
-
-<img src="https://github.com/kanatsanan6/kanatsanan6/blob/main/authpc.PNG?raw=true" alt="authen" width="800"/>
-
-### HomePage
-
-<img src="https://github.com/kanatsanan6/kanatsanan6/blob/main/homepagepc.PNG?raw=true" alt="homepage" width="800"/>
-
-KEP OM is a Full-Stack web application built by **React js (Frontend)**, **Node js (Backend)**, and **MongoDB (database).**
+KEP OM is a Full-Stack web application built by **React js (Frontend)**, **Node js / Express (Backend)**, and **MongoDB (database).**
 
 *The design prototype has been drafted using **Figma**. Click [here](https://www.figma.com/file/SInsrqwE01a58zV6pdjdrV/Untitled?node-id=0%3A1) to Check it out!
 
@@ -58,11 +53,11 @@ KEP OM is a Full-Stack web application built by **React js (Frontend)**, **Node 
 
 - User can login using either registerd Email or Gmail.
 
-- User can add new Transaction.
+- User can add a new Transaction.
 
-- User can edit new Transaction.
+- User can edit a Transaction.
 
-- User can delete new Transaction.
+- User can delete a Transaction.
 
 - User can be able to see the overall payment.
 
